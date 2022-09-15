@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name='passwordstore',
-    version='1.0.0',
+    version='VERSIONGOESHERE',
     author="MaksL",
     author_email="contactmaksloboda@gmail.com",
     description=u"Small utility to generate secure passwords from masterpass word",
@@ -20,7 +20,7 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    py_modules=['main'],
+    py_modules=['passwordstore'],
     install_requires=[
         'click',
         'cryptography',
@@ -28,7 +28,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'passwordstore = main:cli',
+            'passwordstore = passwordstore:cli',
         ],
     },
     python_requires=">=3.6",

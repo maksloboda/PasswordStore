@@ -1,0 +1,29 @@
+name: upload
+
+on:
+  push:
+    tags:
+      - v**
+
+jobs:
+  upload:
+    name: Upload
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          lfs: true
+      - uses: olegtarasov/get-tag@v2.1
+        id: tagName
+        with:
+          tagRegex: "v(.*)"
+      - name: Set version
+        run: sed -i 's/VERSIONGOESHERE/${{ steps.tagName.outputs.tag }}/g' setup.py
+      - name: Build
+        run: python setup.py build sdist
+      - name: upload
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          password: ${{ secrets.PYPI_API_TOKEN }}
+          verify_metadata: true
